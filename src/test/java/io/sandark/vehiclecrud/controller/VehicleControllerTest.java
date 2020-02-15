@@ -2,7 +2,7 @@ package io.sandark.vehiclecrud.controller;
 
 import io.sandark.vehiclecrud.dao.VehicleRepository;
 import io.sandark.vehiclecrud.entity.Vehicle;
-import io.sandark.vehiclecrud.exceptions.EntityNotFoundException;
+import io.sandark.vehiclecrud.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,7 +39,7 @@ class VehicleControllerTest {
     }
 
     @Test
-    void findVehicleById() throws EntityNotFoundException {
+    void findVehicleById() throws RecordNotFoundException {
         Vehicle expectedVehicle = new Vehicle();
         long vehicleId = 1L;
         when(vehicleRepository.findById(vehicleId)).thenReturn(Optional.of(expectedVehicle));
@@ -55,7 +55,7 @@ class VehicleControllerTest {
         long vehicleId = 1L;
         when(vehicleRepository.findById(vehicleId)).thenReturn(Optional.empty());
 
-        EntityNotFoundException caughtException = assertThrows(EntityNotFoundException.class,
+        RecordNotFoundException caughtException = assertThrows(RecordNotFoundException.class,
                 () -> vehicleController.findVehicleById(vehicleId));
 
         assertThat(caughtException.getMessage()).isEqualTo("Vehicle with id %d is not found.", vehicleId);
@@ -81,7 +81,7 @@ class VehicleControllerTest {
     }
 
     @Test
-    void deleteVehicle() throws EntityNotFoundException {
+    void deleteVehicle() throws RecordNotFoundException {
         Vehicle expectedVehicle = aVehicle().build();
         long vehicleId = 1L;
         when(vehicleRepository.findById(vehicleId)).thenReturn(Optional.of(expectedVehicle));
@@ -99,7 +99,7 @@ class VehicleControllerTest {
         long vehicleId = 1L;
         when(vehicleRepository.findById(vehicleId)).thenReturn(Optional.empty());
 
-        EntityNotFoundException caughtException = assertThrows(EntityNotFoundException.class,
+        RecordNotFoundException caughtException = assertThrows(RecordNotFoundException.class,
                 () -> vehicleController.deleteVehicle(vehicleId));
 
         verify(vehicleRepository).findById(vehicleId);
@@ -110,7 +110,7 @@ class VehicleControllerTest {
     }
 
     @Test
-    void updateVehicle() throws EntityNotFoundException {
+    void updateVehicle() throws RecordNotFoundException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
@@ -131,13 +131,13 @@ class VehicleControllerTest {
 
 
     @Test
-    void updateVehicle_throwsExceptionIfNotFound() throws EntityNotFoundException {
+    void updateVehicle_throwsExceptionIfNotFound() throws RecordNotFoundException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         Long vehicleId = 100L;
 
-        EntityNotFoundException caughtException = assertThrows(EntityNotFoundException.class,
+        RecordNotFoundException caughtException = assertThrows(RecordNotFoundException.class,
                 () -> vehicleController.updateVehicle(vehicleId, new Vehicle()));
 
         verify(vehicleRepository).findById(vehicleId);

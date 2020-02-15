@@ -2,7 +2,7 @@ package io.sandark.vehiclecrud.controller;
 
 import io.sandark.vehiclecrud.dao.VehicleRepository;
 import io.sandark.vehiclecrud.entity.Vehicle;
-import io.sandark.vehiclecrud.exceptions.EntityNotFoundException;
+import io.sandark.vehiclecrud.exceptions.RecordNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,9 +28,9 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicles/{id}")
-    public Vehicle findVehicleById(@PathVariable(value = "id") Long id) throws EntityNotFoundException {
+    public Vehicle findVehicleById(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Vehicle with id %d is not found.", id)));
+                .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
     }
 
     @PostMapping("/vehicles")
@@ -47,9 +47,9 @@ public class VehicleController {
 
     @PutMapping("/vehicles/{id}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(value = "id") Long id,
-                                                 @Valid @RequestBody Vehicle vehicle) throws EntityNotFoundException {
+                                                 @Valid @RequestBody Vehicle vehicle) throws RecordNotFoundException {
         vehicleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Vehicle with id %d is not found.", id)));
+                .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
 
         vehicle.setId(id);
         Vehicle persistedVehicle = vehicleRepository.save(vehicle);
@@ -58,9 +58,9 @@ public class VehicleController {
     }
 
     @DeleteMapping("/vehicles/{id}")
-    public Map<String, Boolean> deleteVehicle(@PathVariable(value = "id") Long id) throws EntityNotFoundException {
+    public Map<String, Boolean> deleteVehicle(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
         Vehicle vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Vehicle with id %d is not found.", id)));
+                .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
 
         vehicleRepository.delete(vehicle);
 
