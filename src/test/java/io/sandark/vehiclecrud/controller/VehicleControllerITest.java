@@ -39,7 +39,7 @@ public class VehicleControllerITest {
         Vehicle vehicle = VehicleBuilder.aVehicle().build();
         String body = objectMapper.writeValueAsString(vehicle);
 
-        mockMvc.perform(post("/vehicles")
+        mockMvc.perform(post("/vehicle/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isBadRequest());
@@ -50,7 +50,7 @@ public class VehicleControllerITest {
         Vehicle validVehicle = VehicleFixture.getValidVehicle();
         String body = objectMapper.writeValueAsString(validVehicle);
 
-        mockMvc.perform(post("/vehicles")
+        mockMvc.perform(post("/vehicle/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().is2xxSuccessful())
@@ -59,14 +59,14 @@ public class VehicleControllerITest {
 
     @Test
     void whenVehicleIsNotFound_thenReturnsStatus404() throws Exception {
-        mockMvc.perform(get("/vehicles/{id}", 999999L)
+        mockMvc.perform(get("/vehicle/{id}", 999999L)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
     @Test
     void whenFindAllVehicle_thenReturnResult() throws Exception {
-        mockMvc.perform(get("/vehicles")
+        mockMvc.perform(get("/vehicle/list")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty())
