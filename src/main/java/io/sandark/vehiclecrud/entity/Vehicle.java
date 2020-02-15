@@ -1,31 +1,39 @@
 package io.sandark.vehiclecrud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
+@JsonIgnoreProperties(value = {"id"})
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @NotBlank(message = "Vehicle brand is mandatory")
     private String brand;
     private String model;
     @NotNull(message = "Vehicle type is mandatory")
+    @Enumerated
     private VehicleType vehicleType;
     private String plateCountry;
+    @NotNull
+    @Size(min = 2, max = 30)
     private String plateNumber;
-    private String vinNumber;
+    @NotNull
+    private String vin;
     private String manufacturedCountry;
-
-    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime creationDate;
 
     private String color;
+
+    public Vehicle() {
+    }
 
     public long getId() {
         return id;
@@ -75,12 +83,12 @@ public class Vehicle {
         this.plateNumber = plateNumber;
     }
 
-    public String getVinNumber() {
-        return vinNumber;
+    public String getVin() {
+        return vin;
     }
 
-    public void setVinNumber(String vinNumber) {
-        this.vinNumber = vinNumber;
+    public void setVin(String vinNumber) {
+        this.vin = vinNumber;
     }
 
     public String getManufacturedCountry() {
