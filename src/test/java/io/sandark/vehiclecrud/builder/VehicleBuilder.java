@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class VehicleBuilder {
 
-    private long id;
+    private Long id;
     private String brand;
     private String model;
     private VehicleType vehicleType;
@@ -39,7 +39,7 @@ public class VehicleBuilder {
         return vehicle;
     }
 
-    public VehicleBuilder withId(long id) {
+    public VehicleBuilder withId(Long id) {
         this.id = id;
         return this;
     }
