@@ -1,5 +1,7 @@
 package io.sandark.vehiclecrud.entity;
 
+import io.sandark.vehiclecrud.validation.CountryIsoCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,12 +20,16 @@ public class Vehicle {
             strategy = GenerationType.SEQUENCE,
             generator = "IdSequenceGenerator")
     private Long id;
+
     @NotBlank(message = "Vehicle brand is mandatory")
     private String brand;
     private String model;
+
     @NotNull(message = "Vehicle type is mandatory")
     @Enumerated(value = EnumType.STRING)
     private VehicleType vehicleType;
+
+    @CountryIsoCode
     private String plateCountry;
     @NotNull
     @Size(min = 2, max = 30)
@@ -31,9 +37,9 @@ public class Vehicle {
     @NotNull
     @Size(max = 17)
     private String vin;
+    @CountryIsoCode
     private String manufacturedCountry;
     private LocalDateTime creationDate;
-
     private String color;
 
     public Vehicle() {
