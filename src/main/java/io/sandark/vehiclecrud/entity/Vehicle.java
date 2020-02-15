@@ -1,7 +1,5 @@
 package io.sandark.vehiclecrud.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,23 +7,29 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@JsonIgnoreProperties(value = {"id"})
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @SequenceGenerator(
+            name = "IdSequenceGenerator",
+            sequenceName = "ID_GEN",
+            allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "IdSequenceGenerator")
+    private Long id;
     @NotBlank(message = "Vehicle brand is mandatory")
     private String brand;
     private String model;
     @NotNull(message = "Vehicle type is mandatory")
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     private VehicleType vehicleType;
     private String plateCountry;
     @NotNull
     @Size(min = 2, max = 30)
     private String plateNumber;
     @NotNull
+    @Size(max = 17)
     private String vin;
     private String manufacturedCountry;
     private LocalDateTime creationDate;
@@ -35,11 +39,11 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
