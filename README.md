@@ -5,7 +5,6 @@
 #####1. Build using mvn clean install -DskipTests
 #####2. Run application root in IDE (or mvn spring-boot:run)
 
-
 ## 2. Use Docker to host an application
 
 Create an image with following parameters:<br>
@@ -21,3 +20,8 @@ docker container rm --force vc
 <p>
 Check list of running containers<br>
 docker ps
+
+# Swagger
+Swagger documentation is available at following list:
+http://localhost:8080/api - json with 
+http://localhost:8080/swagger-ui.html - swagger ui page
