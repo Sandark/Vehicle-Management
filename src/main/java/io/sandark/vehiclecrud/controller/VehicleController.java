@@ -5,6 +5,7 @@ import io.sandark.vehiclecrud.exceptions.NonUniqueVinException;
 import io.sandark.vehiclecrud.exceptions.RecordNotFoundException;
 import io.sandark.vehiclecrud.service.VehicleService;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +26,7 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
 
+    @Autowired
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
