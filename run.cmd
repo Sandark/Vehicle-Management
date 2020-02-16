@@ -15,8 +15,8 @@ IF %M%==3 GOTO DOCKERSTOP
 IF %M%==9 GOTO EXITSCRIPT
 
 :MAVENRUN
-call mvn clean install -DskipTests -T 1C
-mvn spring-boot:run -DskipTests
+call mvnw clean install -DskipTests -T 1C
+mvnw spring-boot:run -DskipTests
 GOTO MENU
 :DOCKERRUN
 docker image build -t vehiclecrud:1.0 .
