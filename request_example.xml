@@ -1,0 +1,66 @@
+<!--http://localhost:8080/ws/vehicles.wsdl-->
+<!--Example of findVehicleRequest-->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <findVehicleRequest xmlns="http://www.sandark.io/vehiclews">
+            <id>1</id>
+        </findVehicleRequest>
+    </Body>
+</Envelope>
+<!--Response-->
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header/>
+<SOAP-ENV:Body>
+    <ns2:createVehicleResponse xmlns:ns2="http://www.sandark.io/vehiclews">
+        <ns2:vehicle>
+            <ns2:id>74</ns2:id>
+            <ns2:brand>Volkswagen</ns2:brand>
+            <ns2:color>Gray</ns2:color>
+            <ns2:manufacturedCountry>DE</ns2:manufacturedCountry>
+            <ns2:model>Tiguan</ns2:model>
+            <ns2:plateCountry>DE</ns2:plateCountry>
+            <ns2:plateNumber>1234ABCD</ns2:plateNumber>
+            <ns2:vehicleType>SUV</ns2:vehicleType>
+            <ns2:vin>VINSDWAl2321SLDAS</ns2:vin>
+        </ns2:vehicle>
+    </ns2:createVehicleResponse>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+<!--Example of createVehicle-->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+<Body>
+    <createVehicleRequest xmlns="http://www.sandark.io/vehiclews">
+        <vehicle>
+            <brand>Volkswagen</brand>
+            <color>Gray</color>
+            <manufacturedCountry>DE</manufacturedCountry>
+            <model>Tiguan</model>
+            <plateCountry>DE</plateCountry>
+            <plateNumber>1234ABCD</plateNumber>
+            <vehicleType>SUV</vehicleType>
+            <vin>VINSDWAl213ASLDAS</vin>
+        </vehicle>
+    </createVehicleRequest>
+</Body>
+</Envelope>
+<!--Response-->
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header/>
+<SOAP-ENV:Body>
+    <ns2:findVehicleResponse xmlns:ns2="http://www.sandark.io/vehiclews">
+        <ns2:vehicle>
+            <ns2:id>34</ns2:id>
+            <ns2:brand>Volkswagen</ns2:brand>
+            <ns2:color>GRAY</ns2:color>
+            <ns2:creationDate>2007-06-18T04:21:36.000+03:00</ns2:creationDate>
+            <ns2:manufacturedCountry>DE</ns2:manufacturedCountry>
+            <ns2:model>Golf</ns2:model>
+            <ns2:plateCountry>FI</ns2:plateCountry>
+            <ns2:plateNumber>133GUN</ns2:plateNumber>
+            <ns2:vehicleType>HATCHBACK</ns2:vehicleType>
+            <ns2:vin>VINSDWAl213ASL24F</ns2:vin>
+        </ns2:vehicle>
+    </ns2:findVehicleResponse>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

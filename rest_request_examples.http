@@ -1,0 +1,53 @@
+POST http://localhost:8080/vehicle/create
+Content-Type: application/json
+
+{
+  "brand": "Volkswagen",
+  "model": "Golf",
+  "vehicleType": "HATCHBACK",
+  "plateNumber": "133GUN",
+  "vin": "VINSDWAl213ASL24S",
+  "manufacturedCountry": "DE",
+  "creationDate": "2007-06-18T04:21:36",
+  "color": "GRAY"
+}
+
+###
+POST http://localhost:8080/vehicle/create
+Content-Type: application/json
+
+{
+  "brand": "Volkswagen",
+  "model": "Golf",
+  "vehicleType": "HATCHBACK",
+  "plateCountry": "FI",
+  "plateNumber": "133GUN",
+  "vin": "VINSDWAl213ASL24F",
+  "manufacturedCountry": "DE",
+  "creationDate": "2007-06-18T04:21:36",
+  "color": "GRAY"
+}
+
+###
+PUT http://localhost:8080/vehicle/update/1
+Content-Type: application/json
+
+{
+  "brand": "Volkswagen",
+  "model": "Golf",
+  "vehicleType": "HATCHBACK",
+  "plateCountry": "FI",
+  "plateNumber": "133GUN",
+  "vin": "VINSDWAl213ASL24F",
+  "manufacturedCountry": "DE",
+  "creationDate": "2007-06-18T04:21:36",
+  "color": "GRAY"
+}
+
+### Get all vehicles
+GET localhost:8080/vehicle/list
+
+###
+DELETE localhost:8080/vehicle/delete/1
+
+###
