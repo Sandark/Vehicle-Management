@@ -1,9 +1,11 @@
 # Vehicle CRUD
 Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
 # Running application
+By default, application uses in-file H2 databases to persist information between runs. Upon first run schema.sql and data.sql will be used to generate needed tables and insert initial data.<br>
+Tests are using in-memory H2 database and clean it up after each test to ensure test independence.
 ## Run from IDE
-1.  Build using mvn clean install -DskipTests
-2.  Run application root in IDE (or mvn spring-boot:run)
+1.  Build using `mvn clean install -DskipTests`
+2.  Run application root in IDE (or `mvn spring-boot:run`)
 
 ## Use Docker to host an application
 
@@ -19,7 +21,7 @@ After image was created publish it in docker, exposing the port you would like t
 docker container run --publish 8000:8080 --detach --name vc vehiclecrud:1.0
 ```
 <p>
-Application should be available at localhost:8000/ (Message "Application root" should be shown). Now you can use REST endpoints 
+Application should be available at localhost:8000/ (Message "Application root" should be shown). Now REST endpoints, WebServer endpoints can be used. 
 <p>
 Stop container when it's not needed<br>
 
