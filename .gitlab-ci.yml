@@ -1,5 +1,8 @@
 image: maven:latest
 
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
 cache:
   paths:
     - target/
