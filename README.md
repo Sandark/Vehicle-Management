@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/Sandark/vehicle-crud/badges/master/pipeline.svg)](https://gitlab.com/Sandark/vehicle-crud/-/commits/master)
+[![coverage report](https://gitlab.com/Sandark/vehicle-crud/badges/master/coverage.svg)](https://gitlab.com/Sandark/vehicle-crud/-/commits/master)
+
 # Vehicle CRUD
 Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
 # Running application
