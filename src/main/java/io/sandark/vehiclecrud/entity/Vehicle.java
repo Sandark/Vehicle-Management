@@ -1,8 +1,7 @@
 package io.sandark.vehiclecrud.entity;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import io.sandark.vehiclecrud.validation.CountryIsoCode;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,20 +34,20 @@ public class Vehicle {
     @ApiModelProperty(notes = "Vehicle type from a selected list of entries", required = true)
     private VehicleType vehicleType;
     @CountryIsoCode
-    @ApiModelProperty(notes = "Country plate number in ISO 3166-1 alpha-2 format")
+    @ApiModelProperty(notes = "Country plate number in ISO 3166-1 alpha-2 format (e.g. DE,EE,FI)")
     private String plateCountry;
     @NotNull
     @Size(min = 2, max = 30)
-    @ApiModelProperty(notes = "Official plate number", required = true)
+    @ApiModelProperty(notes = "Official plate number, size from 2 up to 30 chars", required = true)
     private String plateNumber;
     @NotNull
     @Size(max = 17)
-    @ApiModelProperty(notes = "Unique vehicle identifier", required = true)
+    @ApiModelProperty(notes = "Unique vehicle identifier, no longer then 17 chars", required = true)
     private String vin;
     @CountryIsoCode
-    @ApiModelProperty(notes = "Country of manufacture of vehicle in ISO 3166-1 alpha-2 format")
+    @ApiModelProperty(notes = "Country of manufacture of vehicle in ISO 3166-1 alpha-2 format (e.g. DE,EE,FI)")
     private String manufacturedCountry;
-    @ApiModelProperty(notes = "Date and Time of record creation")
+    @ApiModelProperty(notes = "Assembly Date and Time of the vehicle")
     private LocalDateTime creationDate;
     @ApiModelProperty(notes = "Color of the vehicle")
     private String color;
