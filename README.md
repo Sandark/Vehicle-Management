@@ -21,6 +21,9 @@ docker container rm --force vc
 Check list of running containers<br>
 docker ps
 
+# Webservice
+http://localhost:8080/ws/vehicles.wsdl
+
 # Swagger
 Swagger documentation is available at following list:
 http://localhost:8080/api - json with 

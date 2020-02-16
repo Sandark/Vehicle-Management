@@ -93,5 +93,5 @@ FROM (SELECT 'Mazda'                as BRAND,
      ) sub
 WHERE NOT EXISTS(SELECT 1
                  FROM VEHICLE
-                 WHERE ID = 1);
+                 WHERE ID BETWEEN 1 AND 100000);
 
