@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
+    private static final String NON_UNIQUE_VIN_MESSAGE = "VIN %s already exist, please use another one";
     private final VehicleRepository vehicleRepository;
 
     @Autowired
@@ -49,8 +51,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     private void validate(Vehicle vehicleToCreate) throws NonUniqueVinException {
-        if (vehicleRepository.findByVin(vehicleToCreate.getVin()).isPresent()) {
-            throw new NonUniqueVinException(String.format("VIN %s already exist, please use another one", vehicleToCreate.getVin()));
+        Optional<Vehicle> vehicleByVin = vehicleRepository.findByVin(vehicleToCreate.getVin());
+        if (vehicleByVin.isPresent() && !Objects.equals(vehicleByVin.get().getId(), vehicleToCreate.getId())) {
+            throw new NonUniqueVinException(String.format(NON_UNIQUE_VIN_MESSAGE, vehicleToCreate.getVin()));
         }
     }
 }

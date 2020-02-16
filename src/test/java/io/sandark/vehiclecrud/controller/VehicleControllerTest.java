@@ -120,12 +120,12 @@ class VehicleControllerTest {
         Vehicle toPersist = aVehicle().withBrand("VAZ").build();
 
         Mockito.when(vehicleService.findById(vehicleId)).thenReturn(Optional.of(new Vehicle()));
-        Mockito.when(vehicleService.create(toPersist)).thenReturn(persistedVehicle);
+        Mockito.when(vehicleService.update(toPersist)).thenReturn(persistedVehicle);
 
         ResponseEntity<Vehicle> responseEntity = vehicleController.updateVehicle(vehicleId, toPersist);
 
         verify(vehicleService).findById(vehicleId);
-        verify(vehicleService).create(toPersist);
+        verify(vehicleService).update(toPersist);
         assertThat(responseEntity.getBody()).isEqualTo(persistedVehicle);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
