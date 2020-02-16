@@ -1,5 +1,4 @@
 [![pipeline status](https://gitlab.com/Sandark/vehicle-crud/badges/master/pipeline.svg)](https://gitlab.com/Sandark/vehicle-crud/-/commits/master)
-[![coverage report](https://gitlab.com/Sandark/vehicle-crud/badges/master/coverage.svg)](https://gitlab.com/Sandark/vehicle-crud/-/commits/master)
 
 # Vehicle CRUD
 Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
@@ -55,9 +54,10 @@ Application has 5 REST endpoints:
 *  **DELETE /vehicle/delete/{id}** - deletes record by following id, returns flag deleted if removed, or throws an error if record is not found
 <br>
 Examples of using REST are in file **rest_request_examples.http**
+
 ## Webservice
 http://localhost:8080/ws/vehicles.wsdl - service definition<br>
-WebService supports 2 operations: createVehicle and findVehicleById<br>
+WebService supports 2 operations: createVehicleRequest and findVehicleRequest<br>
 Examples of requests and responses are in file **request_example.xml**
 
 ## Swagger
