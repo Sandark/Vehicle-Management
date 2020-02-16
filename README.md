@@ -58,7 +58,7 @@ WebService supports 2 operations: createVehicle and findVehicleById<br>
 Examples of requests and responses are in file **request_example.xml**
 
 ## Swagger
-Swagger documentation is available at following list:
+Swagger documentation is available at following links:
 * http://localhost:8080/api - json with 
 * http://localhost:8080/swagger-ui.html - swagger ui page
 
