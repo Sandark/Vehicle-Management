@@ -53,5 +53,6 @@ class VehicleRepositoryTest {
 
         assertThat(all).isNotEmpty();
         assertThat(all).allMatch(v -> v.getId() != null);
+        assertThat(all).anyMatch(v -> v.getVin().equals("VWTESTVIN01314532"));
     }
 }
