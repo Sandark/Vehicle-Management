@@ -31,7 +31,7 @@ class VehicleEndpointITest {
     private ResourceLoader resourceLoader;
 
     private MockWebServiceClient mockClient;
-    private Resource xsdSchema = new ClassPathResource("xsd/vehicles.xsd");
+    private final Resource xsdSchema = new ClassPathResource("xsd/vehicles.xsd");
 
     @BeforeEach
     public void init() {
@@ -40,8 +40,8 @@ class VehicleEndpointITest {
 
     @Test
     public void findVehicleById_validRequest() throws IOException {
-        Resource requestPayload = resourceLoader.getResource("classpath:ws/findVehicleRequest.xml");;
-        Resource responsePayload = resourceLoader.getResource("classpath:ws/findVehicleResponse.xml");;
+        Resource requestPayload = resourceLoader.getResource("classpath:ws/findVehicleRequest.xml");
+        Resource responsePayload = resourceLoader.getResource("classpath:ws/findVehicleResponse.xml");
 
         mockClient
                 .sendRequest(RequestCreators.withPayload(requestPayload))
@@ -52,8 +52,8 @@ class VehicleEndpointITest {
 
     @Test
     public void createVehicle_validRequest() throws IOException {
-        Resource requestPayload = resourceLoader.getResource("classpath:ws/createVehicleValidRequest.xml");;
-        Resource responsePayload = resourceLoader.getResource("classpath:ws/createVehicleResponse.xml");;
+        Resource requestPayload = resourceLoader.getResource("classpath:ws/createVehicleValidRequest.xml");
+        Resource responsePayload = resourceLoader.getResource("classpath:ws/createVehicleResponse.xml");
 
         mockClient
                 .sendRequest(RequestCreators.withPayload(requestPayload))

@@ -28,7 +28,7 @@ public interface VehicleService {
     /**
      * Updates vehicle from provided entity. If vehicle VIN already exists in DB
      * then NonUniqueVinException is thrown.
-     * @param vehicleToCreate entity to persist
+     * @param vehicle entity to update
      * @return persisted entity with id
      */
     Vehicle update(Vehicle vehicle) throws NonUniqueVinException;

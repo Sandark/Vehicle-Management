@@ -21,7 +21,6 @@ import java.util.Optional;
 import static io.sandark.vehiclecrud.builder.VehicleBuilder.aVehicle;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -132,7 +131,7 @@ class VehicleControllerTest {
 
 
     @Test
-    void updateVehicle_throwsExceptionIfNotFound() throws RecordNotFoundException, NonUniqueVinException {
+    void updateVehicle_throwsExceptionIfNotFound() throws NonUniqueVinException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
