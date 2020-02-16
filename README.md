@@ -1,30 +1,58 @@
 # Vehicle CRUD
-
+Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
 # Running application
-## 1. Run from IDE
-#####1. Build using mvn clean install -DskipTests
-#####2. Run application root in IDE (or mvn spring-boot:run)
+## Run from IDE
+1.  Build using mvn clean install -DskipTests
+2.  Run application root in IDE (or mvn spring-boot:run)
 
-## 2. Use Docker to host an application
+## Use Docker to host an application
 
 Create an image with following parameters:<br>
+
+```
 docker image build -t vehiclecrud:1.0
+```
 <p>
 After image was created publish it in docker, exposing the port you would like to access (change 8000 to a port you would like)<br>
+
+```
 docker container run --publish 8000:8080 --detach --name vc vehiclecrud:1.0
+```
 <p>
 Application should be available at localhost:8000/ (Message "Application root" should be shown). Now you can use REST endpoints 
 <p>
 Stop container when it's not needed<br>
+
+```
 docker container rm --force vc
+```
 <p>
 Check list of running containers<br>
+
+```
 docker ps
+```
 
-# Webservice
-http://localhost:8080/ws/vehicles.wsdl
+## Use run.cmd from root foolder
+run.cmd automatically executes needed commands to run application using maven or docker. Run run.cmd and follow instructions to load application
 
-# Swagger
+# Application
+By default application will be available at http://localhost:8080/ (or 8000 for docker). 
+After loading root address "Application root" will be shown to verify that application is running.
+
+## REST endpoints
+Application has 5 REST endpoints:
+*  GET /vehicle/list - returns all vehicles records from application
+*  GET /vehicle/{id} - returns one record of vehicle found by id or throws an error if record is not found
+*  POST /vehicle/create - creates new vehicle record from provided body or throws an error if VIN code is not unique
+*  PUT /vehicle/update/{id} - updates record by following id and provided body, throws an error if VIN is not unique
+*  DELETE /vehicle/delete/{id} - deletes record by following id, returns flag deleted if removed, or throws an error if record is not found
+## Webservice
+http://localhost:8080/ws/vehicles.wsdl - service definition<br>
+WebService supports 2 operations: createVehicle and findVehicleById<br>
+Examples of requests and responses might be found in file request_example.xml
+
+## Swagger
 Swagger documentation is available at following list:
-http://localhost:8080/api - json with 
-http://localhost:8080/swagger-ui.html - swagger ui page
+* http://localhost:8080/api - json with 
+* http://localhost:8080/swagger-ui.html - swagger ui page
