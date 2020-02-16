@@ -3,6 +3,7 @@ package io.sandark.vehiclecrud.controller;
 import io.sandark.vehiclecrud.dao.VehicleRepository;
 import io.sandark.vehiclecrud.entity.Vehicle;
 import io.sandark.vehiclecrud.exceptions.RecordNotFoundException;
+import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/vehicle")
+@Api(value = "vehicle", tags = {"Vehicle REST"})
+@SwaggerDefinition(tags = {
+        @Tag(name = "Vehicle REST", description = "CRUD operations for handling vehicles")
+})
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
@@ -22,18 +28,31 @@ public class VehicleController {
         this.vehicleRepository = vehicleRepository;
     }
 
-    @GetMapping("/vehicles")
+    @GetMapping("/list")
+    @ApiOperation(value = "Retrieves the list of all existing vehicles", response = Vehicle.class, responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list")
+    })
     public List<Vehicle> findAllVehicles() {
         return vehicleRepository.findAll();
     }
 
-    @GetMapping("/vehicles/{id}")
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Retrieves the vehicle record by id if exist", response = Vehicle.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved vehicle record"),
+            @ApiResponse(code = 404, message = "The record is not found")
+    })
     public Vehicle findVehicleById(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
     }
 
-    @PostMapping("/vehicles")
+    @PostMapping("/create")
+    @ApiOperation(value = "Creates new vehicle record with provided body", response = Vehicle.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "New record is created")
+    })
     public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) {
         Vehicle persistedVehicle = vehicleRepository.save(vehicle);
 
@@ -45,7 +64,12 @@ public class VehicleController {
         return ResponseEntity.created(location).body(persistedVehicle);
     }
 
-    @PutMapping("/vehicles/{id}")
+    @PutMapping("/update/{id}")
+    @ApiOperation(value = "Updates existing vehicle by provided id and updated vehicle body", response = Vehicle.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Vehicle record is updated"),
+            @ApiResponse(code = 404, message = "The record is not found")
+    })
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(value = "id") Long id,
                                                  @Valid @RequestBody Vehicle vehicle) throws RecordNotFoundException {
         vehicleRepository.findById(id)
@@ -57,7 +81,11 @@ public class VehicleController {
         return ResponseEntity.ok(persistedVehicle);
     }
 
-    @DeleteMapping("/vehicles/{id}")
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Deletes vehicle record by provided id", response = Map.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "The record is not found")
+    })
     public Map<String, Boolean> deleteVehicle(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
