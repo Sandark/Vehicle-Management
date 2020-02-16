@@ -5,6 +5,7 @@ import io.sandark.vehiclecrud.entity.VehicleType;
 import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDateTime;
@@ -53,7 +54,9 @@ public class VehicleMapper {
         GregorianCalendar gcal = GregorianCalendar.from(date.atZone(ZoneId.systemDefault()));
 
         try {
-            return DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+            xmlGregorianCalendar.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            return xmlGregorianCalendar;
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
         }

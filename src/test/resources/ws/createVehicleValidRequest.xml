@@ -2,7 +2,7 @@
     <ns2:vehicle>
         <ns2:brand>Volkswagen</ns2:brand>
         <ns2:color>Gray</ns2:color>
-        <ns2:creationDate>2002-11-23T18:31:48.000+02:00</ns2:creationDate>
+        <ns2:creationDate>2002-11-23T18:31:48.000</ns2:creationDate>
         <ns2:manufacturedCountry>DE</ns2:manufacturedCountry>
         <ns2:model>Golf</ns2:model>
         <ns2:plateCountry>DE</ns2:plateCountry>
