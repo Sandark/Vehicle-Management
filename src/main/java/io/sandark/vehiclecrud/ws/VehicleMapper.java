@@ -10,17 +10,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class VehicleMapper {
-
-    public List<io.sandark.vehiclecrud.Vehicle> mapEntitiesListToXmlTypeList(List<Vehicle> v) {
-        return v.stream()
-                .map(this::mapEntityToXmlType)
-                .collect(Collectors.toList());
-    }
 
     public io.sandark.vehiclecrud.Vehicle mapEntityToXmlType(Vehicle v) {
         io.sandark.vehiclecrud.Vehicle vehicleXmlType = new io.sandark.vehiclecrud.Vehicle();
@@ -36,12 +28,6 @@ public class VehicleMapper {
         vehicleXmlType.setVin(v.getVin());
         vehicleXmlType.setVehicleType(v.getVehicleType().toString());
         return vehicleXmlType;
-    }
-
-    public List<Vehicle> mapXmlTypeListToEntitiesList(List<io.sandark.vehiclecrud.Vehicle> v) {
-        return v.stream()
-                .map(this::mapXmlTypeToEntity)
-                .collect(Collectors.toList());
     }
 
     public Vehicle mapXmlTypeToEntity(io.sandark.vehiclecrud.Vehicle v) {
