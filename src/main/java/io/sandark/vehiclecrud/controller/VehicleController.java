@@ -1,8 +1,9 @@
 package io.sandark.vehiclecrud.controller;
 
-import io.sandark.vehiclecrud.dao.VehicleRepository;
 import io.sandark.vehiclecrud.entity.Vehicle;
+import io.sandark.vehiclecrud.exceptions.NonUniqueVinException;
 import io.sandark.vehiclecrud.exceptions.RecordNotFoundException;
+import io.sandark.vehiclecrud.service.VehicleService;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,10 @@ import java.util.Map;
 })
 public class VehicleController {
 
-    private final VehicleRepository vehicleRepository;
+    private final VehicleService vehicleService;
 
-    public VehicleController(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
 
     @GetMapping("/list")
@@ -34,7 +35,7 @@ public class VehicleController {
             @ApiResponse(code = 200, message = "Successfully retrieved list")
     })
     public List<Vehicle> findAllVehicles() {
-        return vehicleRepository.findAll();
+        return vehicleService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -44,17 +45,18 @@ public class VehicleController {
             @ApiResponse(code = 404, message = "The record is not found")
     })
     public Vehicle findVehicleById(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
-        return vehicleRepository.findById(id)
+        return vehicleService.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
     }
 
     @PostMapping("/create")
     @ApiOperation(value = "Creates new vehicle record with provided body", response = Vehicle.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "New record is created")
+            @ApiResponse(code = 201, message = "New record is created"),
+            @ApiResponse(code = 400, message = "Business Validation has failed (Non unique VIN)")
     })
-    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) {
-        Vehicle persistedVehicle = vehicleRepository.save(vehicle);
+    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) throws NonUniqueVinException {
+        Vehicle persistedVehicle = vehicleService.create(vehicle);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -68,15 +70,16 @@ public class VehicleController {
     @ApiOperation(value = "Updates existing vehicle by provided id and updated vehicle body", response = Vehicle.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Vehicle record is updated"),
+            @ApiResponse(code = 400, message = "Business Validation has failed (Non unique VIN)"),
             @ApiResponse(code = 404, message = "The record is not found")
     })
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(value = "id") Long id,
-                                                 @Valid @RequestBody Vehicle vehicle) throws RecordNotFoundException {
-        vehicleRepository.findById(id)
+                                                 @Valid @RequestBody Vehicle vehicle) throws RecordNotFoundException, NonUniqueVinException {
+        vehicleService.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
 
         vehicle.setId(id);
-        Vehicle persistedVehicle = vehicleRepository.save(vehicle);
+        Vehicle persistedVehicle = vehicleService.update(vehicle);
 
         return ResponseEntity.ok(persistedVehicle);
     }
@@ -87,10 +90,10 @@ public class VehicleController {
             @ApiResponse(code = 404, message = "The record is not found")
     })
     public Map<String, Boolean> deleteVehicle(@PathVariable(value = "id") Long id) throws RecordNotFoundException {
-        Vehicle vehicle = vehicleRepository.findById(id)
+        Vehicle vehicle = vehicleService.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(String.format("Vehicle with id %d is not found.", id)));
 
-        vehicleRepository.delete(vehicle);
+        vehicleService.delete(vehicle);
 
         return Collections.singletonMap("deleted", Boolean.TRUE);
     }
