@@ -3,9 +3,11 @@
 # Vehicle CRUD
 Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
 # Running application
-By default, application uses in-file H2 databases to persist information between runs. Upon first run schema.sql and data.sql will be used to generate needed tables and insert initial data.<br>
-Can be changed to in-memory database to have a clean setup each run by setting property **spring.datasource.url=jdbc:h2:mem:vehicledb** in application.properties.<br>
-Tests are using in-memory H2 database and clean it up after each test to ensure test independence. Test data created from test-data.sql.
+By default, the application uses in-file H2 databases to persist information between runs. Upon the first run, schema.sql and data.sql will be used to generate needed tables and insert initial data.
+
+Can be changed to an in-memory database to have a clean setup each run by setting property **spring.datasource.url=jdbc:h2:mem:vehicledb** in application.properties.
+ 
+Tests are using an in-memory H2 database and clean it up after each test to ensure test independence. Test data is created from test-data.sql.
 ## Run from IDE
 1.  Build using `mvn clean install -DskipTests`
 2.  Run application root in IDE (or `mvn spring-boot:run`)
