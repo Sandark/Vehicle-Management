@@ -66,4 +66,6 @@ Swagger documentation is available at following links:
 * http://localhost:8080/swagger-ui.html - swagger ui page
 
 # Gitlab CI
+Repository was originally at Gitlab and later moved to Github. 
+Original repository can be found here - https://gitlab.com/Sandark/vehicle-crud
 Application uses simple CI to ensure that master branch in green state - sources are compiling and tests are working.
