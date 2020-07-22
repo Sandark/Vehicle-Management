@@ -2,6 +2,18 @@ version: "3.8"
 
 services:
 
+  vehiclecrud:
+    build: .
+    ports:
+    - 8080:8080
+    depends_on:
+      - vehiclecrud-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://vehiclecrud-db:5432/vehiclecrud
+      - SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE=20
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+
   vehiclecrud-db:
     image: postgres:12.3
     container_name: vehiclecrud-db
