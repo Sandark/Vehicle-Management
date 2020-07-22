@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1"
+      author: "anton.verchenko"
+      sqlFile:
+        path: "changeset/initial_setup.sql"
+        relativeToChangelogFile: "true"
+
+  - changeSet:
+      id: "2"
+      author: "anton.verchenko"
+      sqlFile:
+        path: "changeset/test_data.sql"
+        relativeToChangelogFile: "true"

@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+
+  vehiclecrud-db:
+    image: postgres:12.3
+    container_name: vehiclecrud-db
+    hostname: vehiclecrud-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=vehiclecrud
+    volumes:
+      - vehiclecrud-db-data:/var/lib/postgresql/data
+
+volumes:
+  vehiclecrud-db-data:
