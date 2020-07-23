@@ -16,15 +16,15 @@ IF %M%==9 GOTO EXITSCRIPT
 
 :MAVENRUN
 call mvnw clean install -DskipTests -T 1C
+docker-compose up -d vehiclecrud-db
 mvnw spring-boot:run -DskipTests
 GOTO MENU
 :DOCKERRUN
-docker image build -t vehiclecrud:1.0 .
 docker container rm --force vc || true
-docker container run --publish 8000:8080 --detach --name vc vehiclecrud:1.0
+docker-compose up -d
 GOTO MENU
 :DOCKERSTOP
-docker container rm --force vc
+docker stop $(docker ps -q)
 GOTO MENU
 :EXITSCRIPT
 EXIT /B

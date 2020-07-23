@@ -3,16 +3,20 @@
 # Vehicle CRUD
 Simple Spring boot application to manage vehicles. You can see them all, create, update or delete.
 # Running application
-By default, the application uses in-file H2 databases to persist information between runs. Upon the first run, initial_setup.sql and test_data.sql will be used to generate needed tables and insert initial data.
+Application requires running DB to work. The simplest way is to use docker compose in order to run Postgres DB.
 
-Can be changed to an in-memory database to have a clean setup each run by setting property **spring.datasource.url=jdbc:h2:mem:vehicledb** in application.properties.
- 
-Tests are using an in-memory H2 database and clean it up after each test to ensure test independence. Test data is created from test-test_data.sql.
+`docker-compose up -d vehiclecrud-db`
+
 ## Run from IDE
-1.  Build using `mvn clean install -DskipTests`
-2.  Run application root in IDE (or `mvn spring-boot:run`)
+1. Build using `mvn clean install -DskipTests`
+2. Run `docker-compose up -d vehiclecrud-db` to run postgres
+3. Run application root in IDE (or `mvn spring-boot:run`)
 
 ## Use Docker to host an application
+
+Run `docker-compose up -d` to launch application and database container. Migration will be done upon first launch and application will be avaialble at `localhost:8080`.
+
+### Dockerfile
 
 Create an image with following parameters:<br>
 
@@ -44,7 +48,7 @@ docker ps
 run.cmd automatically executes needed commands to run application using maven or docker. Run run.cmd and follow instructions to load application
 
 # Application
-By default application will be available at http://localhost:8080/ (or 8000 for docker). 
+By default, application will be available at http://localhost:8080/. 
 After loading root address "Application root" will be shown to verify that application is running.
 
 ## REST endpoints

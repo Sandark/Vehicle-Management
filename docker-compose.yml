@@ -13,7 +13,6 @@ services:
       - SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE=20
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123456
-    container_name: vehiclecrud
     image: vehiclecrud:dev
 
   vehiclecrud-db:
